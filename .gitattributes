@@ -1,0 +1,28 @@
+# Exclude vscode analyzers
+NuGet/** filter= diff= merge=
+# Image formats:
+*.tga filter=lfs diff=lfs merge=lfs
+*.png filter=lfs diff=lfs merge=lfs
+*.tif filter=lfs diff=lfs merge=lfs
+*.jpg filter=lfs diff=lfs merge=lfs
+*.gif filter=lfs diff=lfs merge=lfs
+*.psd filter=lfs diff=lfs merge=lfs
+*.exr filter=lfs diff=lfs merge=lfs
+# Audio formats:
+*.ogg filter=lfs diff=lfs merge=lfs
+*.mp3 filter=lfs diff=lfs merge=lfs
+*.wav filter=lfs diff=lfs merge=lfs
+*.aiff filter=lfs diff=lfs merge=lfs
+# 3D model formats:
+*.fbx filter=lfs diff=lfs merge=lfs
+*.obj filter=lfs diff=lfs merge=lfs
+# Dynamic libraries formats:
+*.dll filter=lfs diff=lfs merge=lfs
+*.so filter=lfs diff=lfs merge=lfs
+*.dylib filter=lfs diff=lfs merge=lfs
+# Video formats:
+*.webm filter=lfs diff=lfs merge=lfs
+*.mp4 filter=lfs diff=lfs merge=lfs
+*.mov filter=lfs diff=lfs merge=lfs
+NuGet/** !text !filter !merge !diff
+Assets/Custom/Scenes/Pines/LightingData.asset filter=lfs diff=lfs merge=lfs -text
