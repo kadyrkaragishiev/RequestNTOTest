@@ -19,11 +19,10 @@ namespace TestRequests
             return await Request(cancellationToken, request);
         }
 
-        public static async UniTask<byte[]> GetRequestFile(CancellationToken cancellationToken, string url, string path,
+        public static async UniTask<string> GetRequestFile(CancellationToken cancellationToken, string url, string path,
             HeaderData headerData = null)
         {
             var request = UnityWebRequest.Get(url);
-            request.downloadHandler = new DownloadHandlerFile(path);
 
             if (headerData != null) request.SetRequestHeader(headerData.Header, headerData.Data);
             return await RequestBytes(cancellationToken, request);
@@ -83,12 +82,13 @@ namespace TestRequests
             }
 
             string requestInfo = request.downloadHandler.text;
+            
             request.Dispose();
 
             return requestInfo;
         }
 
-        private static async UniTask<byte[]> RequestBytes(CancellationToken cancellationToken, UnityWebRequest request)
+        private static async UniTask<string> RequestBytes(CancellationToken cancellationToken, UnityWebRequest request)
         {
             try
             {
@@ -112,11 +112,13 @@ namespace TestRequests
                 Debug.LogError($"request to \"{request.url}\" isn't success");
                 return null;
             }
-
-            // string requestInfo = request.downloadHandler.text;
+            var content_disposition = request.GetResponseHeader("Content-Disposition");
+            content_disposition = content_disposition.Split('=')[1];
+            
             request.Dispose();
-
-            return request.downloadHandler.data;
+            
+            
+            return content_disposition;
         }
 
 

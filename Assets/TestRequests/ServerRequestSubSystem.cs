@@ -29,13 +29,14 @@ namespace TestRequests
                 : throw new Exception("Token not found");
         }
 
-        public static async UniTask<string> PostSendFile(CancellationToken cancellationToken, string url,string path,
+        public static async UniTask<string> PostSendFile(CancellationToken cancellationToken, string url, string path,
             HeaderData headerData = null)
         {
             string response = "";
             WWWForm form = new WWWForm();
-            
-            form.AddBinaryData("save_file", await File.ReadAllBytesAsync(path, cancellationToken), Path.GetFileName(path));
+
+            form.AddBinaryData("save_file", await File.ReadAllBytesAsync(path, cancellationToken),
+                Path.GetFileName(path));
             try
             {
                 response = await UnityWebRequestHelper.PostRequestSendFile(cancellationToken, url, form, headerData);
@@ -49,10 +50,10 @@ namespace TestRequests
             return response;
         }
 
-        public static async UniTask<byte[]> GetRequestFile(CancellationToken cancellationToken, string url, string path,
+        public static async UniTask<string> GetRequestFile(CancellationToken cancellationToken, string url, string path,
             HeaderData headerData = null)
         {
-            byte[] response = { };
+            string response = "";
             try
             {
                 response = await UnityWebRequestHelper.GetRequestFile(cancellationToken, url, path, headerData);
@@ -61,6 +62,8 @@ namespace TestRequests
             {
                 Debug.LogException(e);
             }
+            
+            Debug.Log(response);
 
             return response;
         }
